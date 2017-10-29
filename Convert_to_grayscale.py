@@ -22,7 +22,19 @@ if __name__=='__main__':
         elif os.path.isfile(path):
             image_paths = [path]
         for i, path in enumerate(image_paths):
-            name = os.path.basename(path)
-            new_image = convert_to_grayscale(path)
-            misc.imsave(os.path.join(output_path, 'grayscale_' + name), new_image)
-            print 'done: %d/%d' % (i+1, len(image_paths))
+            if os.path.isfile(path):
+                name = os.path.basename(path)
+                new_image = convert_to_grayscale(path)
+                misc.imsave(os.path.join(output_path, name), new_image)
+                print 'done: %d/%d' % (i+1, len(image_paths))
+            else:
+                dirname = os.path.basename(path)
+                outdir = os.path.join(output_path, dirname)
+                if not os.path.exists(outdir):
+                    os.mkdir(outdir)
+                filelist = os.listdir(path)
+                for j, name in enumerate(filelist):
+                    filepath = os.path.join(path, name)
+                    new_image = convert_to_grayscale(filepath)
+                    misc.imsave(os.path.join(outdir, name), new_image)
+                    print 'done: %d/%d for folder %d/%d' % (i + 1, len(filelist), j, len(image_paths))
