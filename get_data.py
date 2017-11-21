@@ -3,6 +3,7 @@ import requests
 from collections import defaultdict
 from pprint import pprint
 import select
+import numpy
 
 TIMEOUT = 5 # number of seconds your want for timeout
 

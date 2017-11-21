@@ -14,6 +14,8 @@ if __name__ == '__main__':
 
     input_path_1 = args.input_1
     input_path_2 = args.input_2
+    if not os.path.exists(args.output):
+        os.mkdir(args.output)
 
     rmsemodel = FrameEval()
     assert len(input_path_1) == len(input_path_2)
@@ -22,6 +24,7 @@ if __name__ == '__main__':
         input_path_1 = [os.path.join(input_path_1[0], p) for p in os.listdir(input_path_1[0])]
         input_path_2 = [os.path.join(input_path_2[0], p) for p in os.listdir(input_path_2[0])]
 
+    #print input_path_1, input_path_2    
     #the input is a single file
     if len(input_path_1) == 1:
         total_rmse = 0.0
@@ -44,6 +47,7 @@ if __name__ == '__main__':
             for path2 in input_path_2:
                 name2 = os.path.basename(path2)
                 if name1 == name2:
+                    #print path1, path2
                     rmsemodel.eval(path1, path2)
                     output['record'] = name1
                     output['channel_rmse'] = rmsemodel.channel_rmse
