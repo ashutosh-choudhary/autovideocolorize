@@ -39,7 +39,7 @@ if __name__ == '__main__':
         with open(os.path.join(args.output, name + '_rmse.pickle'),'w') as f:
             pickle.dump(output, f)
     else:
-        output = {}
+        output = {'record':[]}
         average_rmse = 0.0
         for path1 in input_path_1:
             total_rmse = 0.0
@@ -49,7 +49,7 @@ if __name__ == '__main__':
                 if name1 == name2:
                     #print path1, path2
                     rmsemodel.eval(path1, path2)
-                    output['record'] = name1
+                    output['record'].append(name1)
                     output['channel_rmse'] = rmsemodel.channel_rmse
                     output['frame_rmse'] = rmsemodel.frame_rmse
                     for i in rmsemodel.frame_rmse:
